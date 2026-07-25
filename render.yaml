@@ -1,0 +1,20 @@
+envVars:
+  # ВСЯ СТРОКА ПОДКЛЮЧЕНИЯ
+  - key: DB_URL
+    value: postgresql://postgres.adspcqgwin:dexex_applepi7@adspcqgwistjkqpfknun.supabase.co:5432/postgres
+  
+  # ТОЛЬКО ПОЛЬЗОВАТЕЛЬ
+  - key: DB_USERNAME
+    value: postgres.adspcqgwin
+  
+  # ТОЛЬКО ПАРОЛЬ
+  - key: DB_PASSWORD
+    value: dexex_applepi7
+  
+# === REDIS (Upstash) ===
+  - key: REDIS_HOST
+    value: https://guiding-ghoul-165098.upstash.io  # 👈 ХОСТ
+  - key: REDIS_PORT
+    value: 6379  # 👈 ВСЕГДА ТАК
+  - key: REDIS_PASSWORD
+    value: gQAAAAAAAoTqAAIgcDE0NGQzODc4ZTMwN2Y0ZmE5OTE3NzZmOWMwYWJhODFjMg  # 👈ТОКЕН
