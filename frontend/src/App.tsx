@@ -1,14 +1,28 @@
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import Dashboard from './pages/Dashboard';
-
-const queryClient = new QueryClient();
 
 function App() {
+  const [tasks, setTasks] = React.useState([]);
+
+  React.useEffect(() => {
+    const api = import.meta.env.VITE_API_URL;
+    fetch(`${api}/tasks`)
+      .then(res => res.json())
+      .then(data => setTasks(data))
+      .catch(err => console.error('Ошибка загрузки задач:', err));
+  }, []);
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <Dashboard />
-    </QueryClientProvider>
+    <div style={{ padding: 20, fontFamily: 'sans-serif' }}>
+      <h1>🚀 TitanFlow</h1>
+      <p>Умный планировщик задач</p>
+      <p>✅ Бэкенд: {import.meta.env.VITE_API_URL}</p>
+      <h3>Все задачи: {tasks.length}</h3>
+      <ul>
+        {tasks.map(t => (
+          <li key={t.id}>{t.title} — {t.status}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
