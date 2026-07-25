@@ -31,8 +31,8 @@ jobs:
           cd frontend
           npm run build
         env:
-          VITE_API_URL: https://твой-проект.up.railway.app/api/v1
-          VITE_WS_URL: wss://твой-проект.up.railway.app/ws
+          VITE_API_URL: https://dynamic-kindness.up.railway.app/api/v1
+          VITE_WS_URL: wss://dynamic-kindness.up.railway.app/ws
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
