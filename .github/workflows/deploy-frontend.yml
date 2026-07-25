@@ -24,15 +24,15 @@ jobs:
       - name: Install dependencies
         run: |
           cd frontend
-          npm ci
+          npm install
 
       - name: Build project
         run: |
           cd frontend
           npm run build
         env:
-          VITE_API_URL: https://titanflow-backend.onrender.com/api/v1
-          VITE_WS_URL: wss://titanflow-backend.onrender.com/ws
+          VITE_API_URL: https://твой-проект.up.railway.app/api/v1
+          VITE_WS_URL: wss://твой-проект.up.railway.app/ws
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
