@@ -1,5 +1,6 @@
 {
   "name": "titanflow-frontend",
+  "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
@@ -11,9 +12,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "@tanstack/react-query": "^5.0.0",
-    "axios": "^1.6.0",
-    "framer-motion": "^10.16.0",
-    "@hello-pangea/dnd": "^16.0.0"
+    "axios": "^1.6.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
