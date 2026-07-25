@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TitanFlow — Умный планировщик</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { 
+      font-family: Arial, sans-serif; 
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .container {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+    h1 {
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .status {
+      background: #f0fdf4;
+      border-left: 4px solid #22c55e;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .status h2 { color: #16a34a; font-size: 18px; margin-bottom: 5px; }
+    .status p { color: #15803d; font-size: 14px; }
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 20px 0;
+    }
+    .feature {
+      background: #f8fafc;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .feature .icon { font-size: 28px; margin-bottom: 5px; }
+    .feature h3 { font-size: 14px; color: #333; }
+    .btn {
+      display: inline-block;
+      background: #667eea;
+      color: white;
+      padding: 12px 30px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 15px;
+      transition: background 0.3s;
+    }
+    .btn:hover { background: #5a67d8; }
+    .api-url {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-top: 15px;
+      word-break: break-all;
+      font-family: monospace;
+    }
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #e2e8f0;
+      border-top: 3px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 10px;
+      vertical-align: middle;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 TitanFlow</h1>
+    <p class="subtitle">Умный планировщик задач с AI-приоритетами</p>
+    
+    <div class="status" id="status">
+      <h2>⏳ Загрузка...</h2>
+      <p>Подключение к бэкенду...</p>
+    </div>
+
+    <div class="features">
+      <div class="feature"><div class="icon">📋</div><h3>Матрица Эйзенхауэра</h3></div>
+      <div class="feature"><div class="icon">🤖</div><h3>AI-приоритеты</h3></div>
+      <div class="feature"><div class="icon">📊</div><h3>Аналитика</h3></div>
+      <div class="feature"><div class="icon">🔔</div><h3>Реальное время</h3></div>
+    </div>
+
+    <a href="#" class="btn" id="openApp">📱 Открыть приложение</a>
+    
+    <div class="api-url" id="apiUrl">
+      Бэкенд: https://dynamic-kindness.up.railway.app
+    </div>
+  </div>
+
+  <script>
+    // Получаем URL бэкенда
+    const API_URL = 'https://dynamic-kindness.up.railway.app/api/v1';
+    
+    // Проверяем, жив ли бэкенд
+    async function checkBackend() {
+      const statusEl = document.getElementById('status');
+      
+      try {
+        const response = await fetch(`${API_URL}/tasks`, {
+          method: 'GET',
+          headers: { 'Content-Type': 'application/json' },
+        });
+        
+        if (response.ok) {
+          const tasks = await response.json();
+          statusEl.innerHTML = `
+            <h2>✅ Бэкенд работает!</h2>
+            <p>Загружено задач: ${Array.isArray(tasks) ? tasks.length : '0'}</p>
+          `;
+        } else {
+          statusEl.innerHTML = `
+            <h2>⚠️ Бэкенд отвечает, но с ошибкой</h2>
+            <p>Код ответа: ${response.status}</p>
+          `;
+        }
+      } catch (e) {
+        statusEl.innerHTML = `
+          <h2>❌ Бэкенд не отвечает</h2>
+          <p>Ошибка: ${e.message}. Возможно, бэкенд на Railway уснул.</p>
+        `;
+      }
+    }
+
+    // Открыть приложение (переход на React-версию)
+    document.getElementById('openApp').addEventListener('click', (e) => {
+      e.preventDefault();
+      // Здесь будет ссылка на React-версию, когда она появится
+      alert('React-версия в разработке! Пока смотри статус бэкенда.');
+    });
+
+    // Запускаем проверку
+    checkBackend();
+
+    // Обновляем каждые 30 секунд
+    setInterval(checkBackend, 30000);
+  </script>
+</body>
+</html>
